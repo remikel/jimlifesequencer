@@ -42,13 +42,20 @@ export default defineComponent({
     updateHour() {
       this.$emit("updateHour", this.newLabel, this.hour?.hour);
     },
-    async scheduleNotification(title: string, body: string) {
+    async scheduleNotification(hour: number, body: string) {
+      console.log(body, hour);
       await LocalNotifications.schedule({
         notifications: [
           {
-            title,
+            title: "Au boulot il est " + hour + "h",
             body,
-            id: 4
+            id: hour,
+            schedule:{
+                on:{
+                  hour: hour,
+                  minute: 0
+                }
+              }
           },
         ],
       });
@@ -89,19 +96,15 @@ export default defineComponent({
     } else if (currentHour == this?.hour?.hour) {
       this.currentClass = "dot dot-current";
     }
+    this.scheduleNotification(this.hour?.hour, this.hour?.label);
     setInterval(() => {
       const date = new Date();
       const currentHour = date.getHours();
-      const currentMinute = date.getMinutes();
       this.currentClass = "dot dot-after";
       if (currentHour > this?.hour?.hour) {
         this.currentClass = "dot dot-before";
       } else if (currentHour == this?.hour?.hour) {
         this.currentClass = "dot dot-current";
-      }
-
-      if (this.hour?.hour == currentHour && currentMinute == 0){
-        this.scheduleNotification('Au boulot il est ' + this.hour?.hour + 'h', this.hour?.label);
       }
     }, 60000);
   },
