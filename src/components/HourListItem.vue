@@ -19,8 +19,7 @@
 <script lang="ts">
 import { IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/vue";
 import { defineComponent } from "vue";
-import { Plugins } from "@capacitor/core";
-const { LocalNotifications } = Plugins;
+import {LocalNotifications} from "@capacitor/local-notifications";
 
 export default defineComponent({
   name: "HourListItem",
@@ -40,15 +39,15 @@ export default defineComponent({
       return win && win.Ionic && win.Ionic.mode === "ios";
     },
     updateHour() {
+      this.scheduleNotification(this.hour?.hour, this.hour?.label);
       this.$emit("updateHour", this.newLabel, this.hour?.hour);
     },
     async scheduleNotification(hour: number, body: string) {
-      console.log(body, hour);
       await LocalNotifications.schedule({
         notifications: [
           {
-            title: "Au boulot il est " + hour + "h",
-            body,
+            body: "Au boulot il est " + hour + "h et arrête de manger tes crottes de nez !",
+            title: body,
             id: hour,
             schedule:{
                 on:{

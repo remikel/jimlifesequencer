@@ -1,19 +1,19 @@
 {
-  "appId": "fr.remikel.jim",
-  "appName": "Jim's Life",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "dist",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    },
-    "LocalNotifications": {
-      "smallIcon": "ic_stat_access_time.png",
-      "iconColor": "#428cff",
-      "sound": "hey_listen.mp3"
-    }
-  },
-  "cordova": {},
-  "linuxAndroidStudioPath": "/snap/bin/android-studio"
+	"appId": "fr.remikel.jim",
+	"appName": "Jim's Life",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "dist",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		},
+		"LocalNotifications": {
+			"smallIcon": "ic_stat_access_time.png",
+			"iconColor": "#428cff",
+			"sound": "hey_listen.mp3"
+		}
+	},
+	"cordova": {},
+	"linuxAndroidStudioPath": "/snap/bin/android-studio"
 }

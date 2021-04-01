@@ -36,6 +36,7 @@ import {
 import { defineComponent } from "vue";
 import { Storage } from "@ionic/storage";
 import HourListItem from "@/components/HourListItem.vue";
+import {LocalNotifications} from "@capacitor/local-notifications";
 
 export default defineComponent({
   name: "Home",
@@ -49,6 +50,7 @@ export default defineComponent({
     HourListItem,
   },
   async created() {
+    LocalNotifications.requestPermissions();
     this.store.create().then(() => {
       this.store.get("hours").then((hours: any) => {
         this.hours = JSON.parse(hours);
@@ -109,6 +111,16 @@ export default defineComponent({
       hours: [] as any,
       store: new Storage(),
     };
+  },
+  methods: {
+    updateHour: async function(newLabel: string, hour: number){
+      for(const i in this.hours){
+        if (this.hours[i].hour == hour){
+          this.hours[i].label = newLabel;
+          await this.store.set("hours", JSON.stringify(this.hours));
+        }
+      }
+    }
   }
 });
 </script>
